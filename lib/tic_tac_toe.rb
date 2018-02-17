@@ -21,8 +21,8 @@ def valid_move?(board, index)
   end
 end
 # Altering board array when a move is made
-def move(board, index, character = "X")
-  board[index] = character
+def move(board, index, character)
+  board[index] = current_player(board)
   return board
 end
 # Method to capture user input for a turn
