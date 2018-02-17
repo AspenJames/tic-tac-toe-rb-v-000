@@ -1,3 +1,4 @@
+# Displaying the board
 def display_board(board)
   puts " #{board[0]} | #{board[1]} | #{board[2]} "
   puts "-----------"
@@ -5,11 +6,11 @@ def display_board(board)
   puts "-----------"
   puts " #{board[6]} | #{board[7]} | #{board[8]} "
 end
-
+# Converting user input to an index
 def input_to_index(user_input)
   index = user_input.to_i - 1
 end
-
+# Validating move
 def valid_move?(board, index)
   if index < 0 || index > board.length
     return false
@@ -19,12 +20,12 @@ def valid_move?(board, index)
     return false
   end
 end
-
+# Altering board array when a move is made
 def move(board, index, character = "X")
   board[index] = character
   return board
 end
-
+# Method to capture user input for a turn
 def turn(board)
   puts "Please enter 1-9:"
   user_input = gets
@@ -34,7 +35,7 @@ def turn(board)
   end
   display_board(move(board, index))
 end
-
+# Keeping track of how many turns have been taken
 def turn_count(board)
   count = 0
   board.each do |space|
@@ -44,7 +45,7 @@ def turn_count(board)
   end
   return count
 end
-
+# Taking turns!
 def current_player(board)
   if turn_count(board) % 2 == 0
     return "X"
@@ -56,8 +57,7 @@ end
 def position_taken?(board, index)
   !(board[index].nil? || board[index] == " ")
 end
-
-# Define your WIN_COMBINATIONS constant
+# Winning arrays
 WIN_COMBINATIONS = [
   [0,1,2],
   [3,4,5],
@@ -68,7 +68,7 @@ WIN_COMBINATIONS = [
   [1,4,7],
   [2,5,8]
 ]
-
+# Checking the winning arrays
 def won?(board)
   i = 0
   empty = true
@@ -88,7 +88,7 @@ def won?(board)
   end
   return false
 end
-
+# Is the board full?
 def full?(board)
   if board.any? { |e| e == " " }
     return false
@@ -96,14 +96,13 @@ def full?(board)
     return true
   end
 end
-
+# Is there a draw?
 def draw?(board)
   if full?(board) && !won?(board)
     return true
   end
 end
-
-
+# Is the game over?
 def over?(board)
   if draw?(board) || won?(board)
     return true
@@ -111,18 +110,25 @@ def over?(board)
     return false
   end
 end
-
+# Who is the winner?
 def winner(board)
   if won?(board)
     win_arr = won?(board)
     return board[win_arr[0]]
   end
 end
-
+# Initializing the play method
 def play(board)
   turn_counter = 0
   while turn_counter < 9
     turn(board)
     turn_counter += 1
+    if won?(board)
+      puts "Congrats #{winner(board)}, you won!"
+      return
+    elsif draw?(board)
+      puts "It's a draw!"
+      return
+    end
   end
 end
