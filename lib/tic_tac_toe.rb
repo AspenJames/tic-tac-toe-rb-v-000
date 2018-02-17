@@ -21,7 +21,7 @@ def valid_move?(board, index)
   end
 end
 # Altering board array when a move is made
-def move(board, index, character)
+def move(board, index)
   board[index] = current_player(board)
   return board
 end
@@ -33,7 +33,7 @@ def turn(board)
   if !valid_move?(board, index)
     turn(board)
   end
-  display_board(move(board, index))
+  display_board(move(board, index, ))
 end
 # Keeping track of how many turns have been taken
 def turn_count(board)
