@@ -31,14 +31,9 @@ def turn(board)
   user_input = gets
   index = input_to_index(user_input)
   if !valid_move?(board, index)
-    if position_taken?(board, index)
-      puts "That spot is taken!"
-      turn(board)
-    end
-    puts "Invalid input!"
     turn(board)
   end
-  display_board(move(board, index, ))
+  display_board(move(board, index))
 end
 # Keeping track of how many turns have been taken
 def turn_count(board)
